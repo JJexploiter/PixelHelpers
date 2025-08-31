@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Clipboard = require(game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("Modules"):WaitForChild("Clipboard")) -- pra copiar link
 
 -- === TRAVA DE EXECUTOR ===
-if not getgenv().PixelCodePlusKey or getgenv().PixelCodePlusKey ~= "meu_executor_unico_123" then
+if not getgenv().PixelCodePlusKey or getgenv().PixelCodePlusKey ~= "4F7D9A2B-1C3E-5B8F-6D0A-9E1B2C3D4F5A" then
     
     -- GUI de aviso
     local ScreenGui = Instance.new("ScreenGui")
