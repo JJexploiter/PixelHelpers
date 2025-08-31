@@ -1,0 +1,101 @@
+--== PixelHelpers GUI ==--
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "PixelHelpers"
+ScreenGui.Parent = game:GetService("CoreGui")
+
+-- Painel Principal
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 300, 0, 400)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- Título
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,0,0,50)
+Title.BackgroundTransparency = 1
+Title.Text = "PixelHelpers"
+Title.TextColor3 = Color3.fromRGB(0,255,255)
+Title.Font = Enum.Font.Code
+Title.TextSize = 24
+Title.Parent = MainFrame
+
+-- Função pra criar botões
+local function CreateButton(name, posY, callback)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0, 260, 0, 40)
+    btn.Position = UDim2.new(0, 20, 0, posY)
+    btn.BackgroundColor3 = Color3.fromRGB(0,150,255)
+    btn.Text = name
+    btn.Font = Enum.Font.Code
+    btn.TextSize = 20
+    btn.TextColor3 = Color3.fromRGB(255,255,255)
+    btn.Parent = MainFrame
+    btn.MouseButton1Click:Connect(callback)
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,6)
+    corner.Parent = btn
+end
+
+-- Helper 1: Super Speed
+CreateButton("Super Speed", 60, function()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    character:WaitForChild("Humanoid").WalkSpeed = 50
+end)
+
+-- Helper 2: Super Jump
+CreateButton("Super Jump", 110, function()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    character:WaitForChild("Humanoid").JumpPower = 200
+end)
+
+-- Helper 3: ESP
+CreateButton("ESP Players", 160, function()
+    for i, v in pairs(Players:GetPlayers()) do
+        if v ~= LocalPlayer and v.Character then
+            local head = v.Character:FindFirstChild("Head")
+            if head and not head:FindFirstChild("ESP") then
+                local box = Instance.new("BoxHandleAdornment")
+                box.Name = "ESP"
+                box.Adornee = head
+                box.Size = Vector3.new(2,2,2)
+                box.Color3 = Color3.fromRGB(255,0,0)
+                box.Transparency = 0.5
+                box.AlwaysOnTop = true
+                box.Parent = head
+            end
+        end
+    end
+end)
+
+-- Helper 4: Raio Seguinte
+CreateButton("Raio Seguindo", 210, function()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local head = character:WaitForChild("Head")
+    local part = Instance.new("Part", workspace)
+    part.Anchored = true
+    part.CanCollide = false
+    part.Size = Vector3.new(0.2,0.2,10)
+    part.BrickColor = BrickColor.new("Bright yellow")
+    RunService.RenderStepped:Connect(function()
+        if head then
+            part.CFrame = head.CFrame * CFrame.new(0,0,-5)
+        end
+    end)
+end)
+
+-- Helper 5: Reset Speed/Jump
+CreateButton("Reset Speed/Jump", 260, function()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = 16
+    humanoid.JumpPower = 50
+end)
