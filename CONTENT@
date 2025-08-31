@@ -1,0 +1,64 @@
+--== PixelHelpers ==--
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Clipboard = require(game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("Modules"):WaitForChild("Clipboard")) -- pra copiar link
+
+-- === TRAVA DE EXECUTOR ===
+if not getgenv().PixelCodePlusKey or getgenv().PixelCodePlusKey ~= "meu_executor_unico_123" then
+    
+    -- GUI de aviso
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "PixelHelpersKey"
+    ScreenGui.Parent = game:GetService("CoreGui")
+
+    local Frame = Instance.new("Frame")
+    Frame.Size = UDim2.new(0, 400, 0, 200)
+    Frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+    Frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+    Frame.Parent = ScreenGui
+
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1,0,0,50)
+    Title.BackgroundTransparency = 1
+    Title.Text = "Atenção!"
+    Title.TextColor3 = Color3.fromRGB(255,0,0)
+    Title.Font = Enum.Font.Code
+    Title.TextSize = 30
+    Title.Parent = Frame
+
+    local Msg = Instance.new("TextLabel")
+    Msg.Size = UDim2.new(1, -20, 0, 80)
+    Msg.Position = UDim2.new(0,10,0,60)
+    Msg.BackgroundTransparency = 1
+    Msg.Text = "Você precisa da key para rodar este script.\nAcesse este link para obter:"
+    Msg.TextColor3 = Color3.fromRGB(255,255,255)
+    Msg.TextWrapped = true
+    Msg.Font = Enum.Font.Code
+    Msg.TextSize = 18
+    Msg.Parent = Frame
+
+    local Link = Instance.new("TextButton")
+    Link.Size = UDim2.new(0, 380, 0, 40)
+    Link.Position = UDim2.new(0,10,0,150)
+    Link.BackgroundColor3 = Color3.fromRGB(0,150,255)
+    Link.Text = "https://rekonise.com/key-pixelhelpers-urglj (Clique para copiar)"
+    Link.Font = Enum.Font.Code
+    Link.TextSize = 18
+    Link.TextColor3 = Color3.fromRGB(255,255,255)
+    Link.Parent = Frame
+
+    -- Copiar link ao clicar
+    Link.MouseButton1Click:Connect(function()
+        setclipboard("https://rekonise.com/key-pixelhelpers-urglj")
+        Link.Text = "Link copiado para a área de transferência!"
+    end)
+
+    return -- não roda o script até ter a key
+end
+
+-- =========================================
+-- Aqui continua o seu PixelHelpers GUI normal
+-- (Super Speed, Super Jump, ESP, Raio etc.)
+-- =========================================
